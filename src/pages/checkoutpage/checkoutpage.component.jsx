@@ -2,7 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import './checkoutpage.styles.scss';
+import {
+  CheckoutPageContainer,
+  CheckoutHeaderContainer,
+  HeaderBlockContainer,
+  TotalContainer,
+  WarningContainer
+} from './checkoutpage.styles.jsx';
 
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors';
 
@@ -10,42 +16,42 @@ import StripeButton from '../../components/stripe-button/stripe-button.component
 import CheckoutItem from '../../components/checkout-item/checkout-item.component.jsx';
 
 const CheckoutPage = ({ cartItems, total }) => (
-  <div className="checkout-page">
-    <div className="checkout-header">
-      <div className="header-block">
+  <CheckoutPageContainer>
+    <CheckoutHeaderContainer>
+      <HeaderBlockContainer>
         <span>Product</span>
-      </div>
+      </HeaderBlockContainer>
 
-      <div className="header-block">
+      <HeaderBlockContainer>
         <span>Description</span>
-      </div>
+      </HeaderBlockContainer>
 
-      <div className="header-block">
+      <HeaderBlockContainer>
         <span>Quantity</span>
-      </div>
+      </HeaderBlockContainer>
 
-      <div className="header-block">
+      <HeaderBlockContainer>
         <span>Price</span>
-      </div>
+      </HeaderBlockContainer>
 
-      <div className="header-block">
+      <HeaderBlockContainer>
         <span>Remove</span>
-      </div>
-    </div>
+      </HeaderBlockContainer>
+    </CheckoutHeaderContainer>
     { 
       cartItems.map(cartItem => ( 
         <CheckoutItem key={cartItem.id} cartItem={cartItem}/>
       ))
     }
 
-    <div className="total">TOTAL: ${total}</div>
-    <div className="test-warning">
+    <TotalContainer>TOTAL: ${total}</TotalContainer>
+    <WarningContainer>
       *Please use the following test credit card for payments*
       <br/>
       4242 4242 4242 4242 - Exp: 12/20 - 123
-    </div>
+    </WarningContainer>
     <StripeButton price={total}/>
-  </div>
+  </CheckoutPageContainer>
 )
 
 const mapStateToProps = createStructuredSelector({
